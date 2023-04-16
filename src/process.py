@@ -20,11 +20,13 @@ def get_windowed_data(array, label, win_len=100, slide_frac=None, slide_step=1):
         slide = slide_step
     while end_idx <= len(array):
         win_arr.append(array[init_idx:end_idx])
-        win_label.append(label[init_idx:end_idx])
+        if label is not None:
+            win_label.append(label[init_idx:end_idx])
         init_idx += slide
         end_idx += slide
     win_arr = np.array(win_arr)
-    label_median = np.median(np.array(win_label), axis=1)
-    win_label = label_median
-
-    return win_arr, win_label
+    if label is not None:
+        win_label = np.median(np.array(win_label), axis=1)
+        return win_arr, win_label
+    else:
+        return win_arr, None
