@@ -2,6 +2,16 @@ import numpy as np
 import random
 
 
+def RunningMedian(x, N):
+    x_new = np.zeros(x.size-N+1,)
+    for i in range(x_new.size):
+        x_new[i] = np.median(x[i:i+N])
+
+    x_new = x_new.astype(int)
+
+    return x_new
+
+
 def random_split_list(a, random_seed, split=0.5):
     random.seed(random_seed)
     random.shuffle(a)
